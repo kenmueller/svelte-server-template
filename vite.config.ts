@@ -1,20 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 
+import type { Plugin, UserConfig } from 'vite'
 import { sveltekit } from '@sveltejs/kit/vite'
 
-import app from './server/app'
+import app from './server/app.js'
 
-/** @type {import('vite').Plugin} */
-const server = {
+const server: Plugin = {
 	name: 'server',
 	configureServer: server => {
 		server.middlewares.use(app)
 	}
 }
 
-/** @type {import('vite').UserConfig} */
-const config = {
+const config: UserConfig = {
 	plugins: [server, sveltekit()],
 	server: {
 		fs: {

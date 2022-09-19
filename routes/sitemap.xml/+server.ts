@@ -1,6 +1,6 @@
-import type { RequestHandler } from '@sveltejs/kit'
+import type { RequestHandler } from './$types'
 
-import errorFromValue from '$lib/error/from/value'
+import errorFromValue from '../../shared/error/from/value.js'
 
 const urls = ['/']
 
@@ -19,15 +19,14 @@ let data: string | null = null
 
 export const GET: RequestHandler = ({ url }) => {
 	try {
-		return {
+		return new Response((data ??= sitemap(url)), {
 			headers: {
 				'cache-control': 'no-cache',
 				'content-type': 'application/xml'
-			},
-			body: (data ??= sitemap(url))
-		}
+			}
+		})
 	} catch (value) {
 		const { code, message } = errorFromValue(value)
-		return { status: code, body: message }
+		return new Response(message, { status: code })
 	}
 }

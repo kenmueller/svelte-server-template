@@ -11,6 +11,7 @@ type MaybePromise<Value> = Value | Promise<Value>
 
 const files = [...staticPages, ...buildFiles, ...staticFiles]
 
+/** Pages to precache on first visit. */
 const cachedPages = ['/']
 
 const worker = self as unknown as ServiceWorkerGlobalScope
@@ -27,7 +28,10 @@ worker.addEventListener('install', event => {
 worker.addEventListener('activate', event => {
 	event.waitUntil(
 		caches.keys().then(async keys => {
-			await Promise.all(keys.map(key => key === version || caches.delete(key)))
+			await Promise.all(
+				keys.map(key => (key === version ? null : caches.delete(key)))
+			)
+
 			await worker.clients.claim()
 		})
 	)

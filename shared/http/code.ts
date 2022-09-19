@@ -1,4 +1,4 @@
-enum ErrorCode {
+enum HttpCode {
 	PermanentRedirect = 301,
 	TemporaryRedirect = 307,
 	BadRequest = 400,
@@ -6,4 +6,4 @@ enum ErrorCode {
 	Internal = 500
 }
 
-export default ErrorCode
+export default HttpCode

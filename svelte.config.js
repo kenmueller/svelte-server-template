@@ -25,18 +25,24 @@ const config = {
 		adapter: adapter(),
 		files: {
 			assets: 'public',
-			hooks: 'hooks',
+			hooks: {
+				server: 'hooks/index.server',
+				client: 'hooks/index.client'
+			},
 			lib: 'lib',
 			routes: 'routes',
 			serviceWorker: 'lib/worker',
-			template: 'lib/index.html'
+			appTemplate: 'lib/app.html'
 		},
 		csp: {
 			directives: {
 				'base-uri': ['self'],
-				'default-src': ['self']
+				'default-src': ['self'],
+				'script-src': ['self', 'unsafe-inline'],
+				'style-src': ['self', 'unsafe-inline']
 			}
-		}
+		},
+		trailingSlash: 'never'
 	}
 }
 

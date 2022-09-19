@@ -1,5 +1,5 @@
-import HttpError from '../http'
-import DEFAULT_ERROR from '../default'
+import HttpError from '../../http/error.js'
+import DEFAULT_ERROR from '../default.js'
 
 const errorFromResponse = async (response: Response) => {
 	try {
