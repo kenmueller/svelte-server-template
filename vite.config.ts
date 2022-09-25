@@ -1,15 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 
+import type { Server } from 'http'
 import type { Plugin, UserConfig } from 'vite'
 import { sveltekit } from '@sveltejs/kit/vite'
 
-import app from './server/app.js'
+interface WithDevServer {
+	devServer?: Server
+}
 
 const server: Plugin = {
 	name: 'server',
-	configureServer: server => {
-		server.middlewares.use(app)
+	configureServer: async server => {
+		;(global as WithDevServer).devServer = server.httpServer as Server
+		server.middlewares.use((await import('./server/app.js')).default)
 	}
 }
 

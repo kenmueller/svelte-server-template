@@ -1,5 +1,3 @@
-import express from 'express'
-
-const app = express()
+import { app } from './root.js'
 
 export default app

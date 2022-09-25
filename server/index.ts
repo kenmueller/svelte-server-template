@@ -1,4 +1,5 @@
 import PORT from './port.js'
+import { server } from './root.js'
 import app from './app.js'
 import security from './security.js'
 
@@ -11,6 +12,6 @@ app.disable('x-powered-by')
 app.use(security)
 app.use(handler)
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}`)
 })
